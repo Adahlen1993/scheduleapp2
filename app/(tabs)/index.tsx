@@ -6,10 +6,13 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link, useRouter } from 'expo-router';
-import { supabase } from '../../src/lib/supabase';
+import { useSessionStore } from '../../src/store/session';
 
 export default function HomeScreen() {
   const router = useRouter();
+
+  const user = useSessionStore((s) => s.user);
+  const signOut = useSessionStore((s) => s.signOut);
 
   return (
     <ParallaxScrollView
@@ -26,12 +29,17 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
 
-      {/* TEMP: Sign out button for Step 1 testing */}
+      {/* Session debug */}
+      <ThemedView style={{ marginBottom: 12 }}>
+        <Text>{user ? `Logged in: ${user.email}` : 'No user'}</Text>
+      </ThemedView>
+
+      {/* Sign out */}
       <ThemedView style={{ marginBottom: 12 }}>
         <Pressable
           onPress={async () => {
-            await supabase.auth.signOut();
-            router.replace('/(auth)/login');
+            await signOut();
+            router.replace('/(auth)/login'); // Step 3 will make this automatic
           }}
           style={{ padding: 12, borderWidth: 1, borderRadius: 10, alignItems: 'center' }}
         >
