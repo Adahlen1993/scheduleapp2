@@ -19,6 +19,7 @@ export const useSessionStore = create<SessionState>((set, get) => ({
 
   init: async () => {
     // Prevent multiple subscriptions (Expo Fast Refresh can re-run init)
+    
     if (!subscribed) {
       subscribed = true;
 

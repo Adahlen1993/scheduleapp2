@@ -39,7 +39,6 @@ export default function HomeScreen() {
         <Pressable
           onPress={async () => {
             await signOut();
-            router.replace('/(auth)/login'); // Step 3 will make this automatic
           }}
           style={{ padding: 12, borderWidth: 1, borderRadius: 10, alignItems: 'center' }}
         >

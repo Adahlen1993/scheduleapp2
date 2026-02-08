@@ -29,6 +29,7 @@ export default function LoginScreen() {
       Alert.alert('Login failed', error.message);
       return;
     }
+Alert.alert('Logged in ✅', `User: ${e}`);
 
     // Temporary: Step 1 routing. Step 3 will handle routing via session.
     router.replace('/(tabs)');
@@ -70,6 +71,7 @@ export default function LoginScreen() {
         </Pressable>
       </Link>
     </View>
+    
   );
 }
 
