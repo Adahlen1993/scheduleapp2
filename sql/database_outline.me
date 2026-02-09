@@ -1,0 +1,103 @@
+Core identity
+
+profiles
+
+1 row per auth user (id = auth.users.id)
+
+first/last name + address + optional avatar/email
+
+Multi-tenant hierarchy
+
+organizations
+
+Umbrella employer (your manager operates here)
+
+Example: “Marge’s Hospitality Group”
+
+org_memberships
+
+Links users to orgs + role
+
+role: owner | manager | employee
+
+This is what drives “manager can edit schedules, employee can only view”
+
+org_invites (or organization_invites)
+
+Employer invites employees/managers by email
+
+Accepting an invite creates an org_memberships row
+
+Scheduling units (separate schedules under one org)
+
+work_sites (aka “departments/locations/teams”)
+
+Scheduling contexts inside an org
+
+Examples:
+
+“Marge’s Diner”
+
+“Boiler Room Catering”
+
+Has optional nickname + address + timezone override (optional)
+
+work_site_hours (later, but planned)
+
+Hours of operation per site per day of week
+
+Scheduling
+
+schedules
+
+Per work_site per week (draft/published)
+
+unique(work_site_id, week_start)
+
+shifts
+
+Actual shift blocks
+
+assigned_user_id + start/end + status
+
+Cross-site conflict detection happens here because the same assigned_user_id can be scheduled across diner+catering
+
+Availability + time off (MVP)
+
+availability_rules
+
+Recurring weekly availability per user (optionally scoped to a work_site later)
+
+day_of_week + start/end time
+
+time_off_requests
+
+PTO requests with approvals
+
+Optional / phase 2 (add when building those screens)
+
+shift_swap_requests
+
+notifications
+
+audit_log
+
+positions/skills tables (if scheduling needs qualifications)
+
+Key relationships (simple)
+
+organizations 1 -> many work_sites
+
+organizations 1 -> many org_memberships
+
+work_sites 1 -> many schedules
+
+schedules 1 -> many shifts
+
+auth.users 1 -> 1 profiles
+
+auth.users 1 -> many shifts (assigned_user_id)
+
+conflict detection: prevent overlaps for same assigned_user_id across all shifts (and later scope to published only)
+
+If you want, I can also give you the exact implementation order we’ll follow next (Step 3 memberships → Step 4 work_sites → Step 5 invites, etc.).
