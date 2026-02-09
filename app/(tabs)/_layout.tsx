@@ -44,6 +44,22 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="building.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+  name="invites"
+  options={{
+    title: 'Invites',
+    tabBarIcon: ({ color }) => <IconSymbol size={28} name="envelope.fill" color={color} />,
+  }}
+/>
+<Tabs.Screen
+  name="redeem"
+  options={{
+    title: 'Redeem',
+    tabBarIcon: ({ color }) => <IconSymbol size={28} name="qrcode" color={color} />,
+  }}
+/>
+
+
 
 
 
