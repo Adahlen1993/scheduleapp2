@@ -58,6 +58,8 @@ export default function TabLayout() {
     tabBarIcon: ({ color }) => <IconSymbol size={28} name="qrcode" color={color} />,
   }}
 />
+<Tabs.Screen name="members" options={{ title: "Members" }} />
+
 
 
 

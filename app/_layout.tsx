@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSessionStore } from '../src/store/session';
 
+import { QueryClientProvider } from '@tanstack/react-query'; // ✅ add
+import { queryClient } from '../src/lib/queryClient'; // ✅ add
+
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
@@ -18,7 +21,6 @@ export default function RootLayout() {
   useEffect(() => {
     if (loading) return;
 
-    // segments example: ["(tabs)"] or ["(auth)", "login"]
     const inAuthGroup = segments[0] === '(auth)';
 
     if (!user && !inAuthGroup) {
@@ -39,5 +41,9 @@ export default function RootLayout() {
     );
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Stack screenOptions={{ headerShown: false }} />
+    </QueryClientProvider>
+  );
 }
